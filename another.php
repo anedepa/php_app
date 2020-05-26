@@ -133,7 +133,7 @@ foreach($dbh->query($sql)as$row){
   
 
    print '<dd>';
-   print '<img src="../'.$task['img']. '"alt="'.$task['img'].'">';
+   print '<img src="../img/'.$task['img']. '"alt="'.$task['img'].'">';
    print '</dd>';
 
    print '<dd>';

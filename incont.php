@@ -129,7 +129,7 @@ if($task['pd']!=='0'){
 
   print '
    <a href="indetale.php/?'.$atai. '&id='.$task['id']. '">
-   <img src="'.$task['img']. '" class="inc_img">
+   <img src="img/'.$task['img']. '" class="inc_img">
    </a>
    ' ;
 

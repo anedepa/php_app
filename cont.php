@@ -5,12 +5,6 @@ define('DB_USER','root');
 // define('DB_PASSWORD','000000');
 define('DB_NAME','dsp');
 // define('DSN', 'mysql:dbhost=localhost;dbname=dsp');
-
-
-//  function h($s) {
-//   return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
-// }
-
 error_reporting(E_ALL & ~E_NOTICE);
 
 try{
@@ -18,6 +12,7 @@ try{
   ('mysql:host='.DB_HOST.';dbname='.DB_NAME,DB_USER,DB_PASSWORD);
 }catch(PDOException $e){
   echo $e->getMessage();
+
   exit;
 }
 
@@ -32,10 +27,7 @@ if(!isset($_GET['page'])){
    }else{
      $page = 1;
    }
-}
-
-
-$PER_PAGE=$_GET['atai1'];
+}$PER_PAGE=$_GET['atai1'];
 // $PER_PAGE=5;
 // var_dump($page);
 
@@ -44,9 +36,9 @@ $pageu=$page+1;
 
 $offset = $PER_PAGE*($page-1);
 // var_dump($offset);
-$pgg = $PER_PAGE;
+$pg = $PER_PAGE;
 // $sql = "select * from comments WHERE id = 1";
-$sqlin = "select * from comments limit $offset,$pgg";
+$sqlin = "select * from comments limit $offset,$pg";
 // $dbh=db_connect();
 $comments = array();
 // まず空の配列を作る
@@ -75,12 +67,9 @@ $totalPages = ceil($total/$PER_PAGE);
 $from=$offset+1;
 $to=($offset+$PER_PAGE)<$total ?($offset+$PER_PAGE):$total;
 
-
-
 ?>
 
-
-    <h1>値保持+２つのテーブル+ページング</h1>
+  <h1>値保持+２つのテーブル+ページング</h1>
 
     <?php $url_param = url_param_change(Array("atai1"=>"5")); ?>
     <a href="<?php echo $url_param; ?>">5ずつ表示</a>
@@ -104,32 +93,17 @@ $to=($offset+$PER_PAGE)<$total ?($offset+$PER_PAGE):$total;
 if($task['pd']!=='0'){
 
   print '<div class="diw">';
-  // print '<a href="another.php/?'.$atai. '&id='.$task['id']. '"class="diw">';
-
-  print '<dt>';
-  print "id=".$task["id"];
-  print '</dt>';
-
-
-  print '<dd>';
-  print "comment=".$task["comment"];
-  print '</dd>';
-
-
-  print '<dd>';
-  print '<img src="'.$task['img']. '">';
-  print '</dd>';
-
+ 
   print '
+
    <a href="another.php/?'.$atai. '&id='.$task['id']. '">
-   詳しく見る
+   <img src="img/'.$task['img']. '" class="inc_img">
    </a>
    ' ;
 
-   // $dbh = new PDO('mysql:dbname=paging;host=localhost;charset=utf8','dbuser','888888');
    $dbh = new PDO('mysql:dbname=dsp;host=localhost;charset=utf8','root','000000');
    $pg = $task['id'];
-   $sqlm = "select * from kome WHERE kiji = $pg";
+   $sqlm = "select * from kome WHERE kiji = $pg order by id desc limit 7";
    $commentsm = array();
    foreach($dbh->query($sqlm)as$roww){
      array_push($commentsm,$roww);
@@ -143,6 +117,7 @@ if($task['pd']!=='0'){
 
    }
 print '</div>';
+
   // print '</a>';
 }
 }
@@ -178,7 +153,7 @@ print '</div>';
 
         <script src="http://code.jquery.com/jquery-1.9.0rc1.js"></script>
        <script>
-       $('.diw').hover(
+       $('.inc_img').hover(
         function() {
               $(this).addClass('aka');
         },
@@ -194,5 +169,4 @@ print '</div>';
             $(this).children('.stream').removeClass('sl');
         }
        );
-
        </script>

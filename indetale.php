@@ -192,7 +192,7 @@ img{
    print '</dd>';
 
      print '<dd>';
-     print '<img src="../'.$task['img']. '" class="ind_img">';
+     print '<img src="../img/'.$task['img']. '" class="ind_img">';
      print '</dd>';
 
    print '<dd>';
